@@ -1,4 +1,5 @@
 INSERT INTO Item(id, ModificationCounter, name, description, price) VALUES (21, 0, 'spaghetti bolognese', 'Italy', 250);
+INSERT INTO Item(id, ModificationCounter, name, description, price) VALUES (22, 0, 'spaghetti carbonara', 'Italy', 300);
 
 INSERT INTO Customer(id, ModificationCounter, firstname, lastname) VALUES (31, 0, 'John', 'Travolta');
 
