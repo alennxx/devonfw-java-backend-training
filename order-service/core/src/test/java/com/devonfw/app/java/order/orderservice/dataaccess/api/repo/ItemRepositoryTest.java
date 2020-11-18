@@ -202,10 +202,24 @@ public class ItemRepositoryTest extends ComponentTest {
     addItemToRepository(ITEM_NAME_1, ITEM_DESCRIPTION, ITEM_PRICE);
 
     // when
-    ItemEntity result = this.mSUT.findByName(ITEM_NAME_1);
+    Optional<ItemEntity> result = this.mSUT.findByName(ITEM_NAME_1);
 
     // then
-    assertThat(result.getName()).isEqualTo(ITEM_NAME_1);
+    assertThat(result).isPresent();
+    assertThat(result.get().getName()).isEqualTo(ITEM_NAME_1);
+  }
+
+  @Test
+  public void shouldNotFindItemByName() {
+
+    // given
+    addItemToRepository(ITEM_NAME_1, ITEM_DESCRIPTION, ITEM_PRICE);
+
+    // when
+    Optional<ItemEntity> result = this.mSUT.findByName("Non existing name");
+
+    // then
+    assertThat(result).isNotPresent();
   }
 
   @Test
@@ -268,7 +282,7 @@ public class ItemRepositoryTest extends ComponentTest {
     double price = 999.99;
 
     // when
-    ItemEntity item = this.mSUT.findByName(ITEM_NAME_1);
+    ItemEntity item = this.mSUT.findByName(ITEM_NAME_1).get();
     item.setPrice(price);
     ItemEntity result = this.mSUT.save(item);
 

@@ -4,6 +4,7 @@ import static com.querydsl.core.alias.Alias.$;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,7 +22,7 @@ import com.querydsl.jpa.impl.JPAQuery;
  */
 public interface ItemRepository extends DefaultRepository<ItemEntity> {
 
-  public ItemEntity findByName(String name);
+  public Optional<ItemEntity> findByName(String name);
 
   /**
    * @param criteria the {@link ItemSearchCriteriaTo} with the criteria to search.

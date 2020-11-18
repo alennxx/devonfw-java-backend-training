@@ -107,6 +107,6 @@ public interface OrderRepository extends DefaultRepository<OrderEntity> {
     }
   }
 
-  public List<OrderEntity> findAllByCreationDateAndStatus(LocalDate creationDate, OrderStatus stauts);
+  public List<OrderEntity> findAllByCreationDateAndStatus(LocalDate creationDate, OrderStatus status);
 
 }
