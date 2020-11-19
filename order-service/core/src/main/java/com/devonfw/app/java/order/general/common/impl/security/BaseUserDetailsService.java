@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -19,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import com.devonfw.app.java.order.general.common.api.security.ApplicationAccessControlConfig;
 import com.devonfw.module.security.common.api.accesscontrol.AccessControl;
 import com.devonfw.module.security.common.api.accesscontrol.AccessControlProvider;
 import com.devonfw.module.security.common.base.accesscontrol.AccessControlGrantedAuthority;
@@ -82,8 +84,8 @@ public class BaseUserDetailsService implements UserDetailsService {
   private Collection<String> getRoles(String username) {
 
     Collection<String> roles = new ArrayList<>();
-    // TODO for a reasonable application you need to retrieve the roles of the user from a central IAM system
-    roles.add(username);
+    UserDetails user = getAmBuilder().getDefaultUserDetailsService().loadUserByUsername(username);
+    roles.addAll(user.getAuthorities().stream().map(a -> a.getAuthority()).collect(Collectors.toList()));
     return roles;
   }
 
@@ -116,7 +118,7 @@ public class BaseUserDetailsService implements UserDetailsService {
    * @param accessControlProvider new value of {@link #getAccessControlProvider}.
    */
   @Inject
-  public void setAccessControlProvider(AccessControlProvider accessControlProvider) {
+  public void setAccessControlProvider(ApplicationAccessControlConfig accessControlProvider) {
 
     this.accessControlProvider = accessControlProvider;
   }

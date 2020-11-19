@@ -1,10 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <access-control-schema>
-  <group id="ReadMasterData" type="group">
+
+  <group id="Barkeeper" type="role">
     <permissions>
-      
     </permissions>
   </group>
 
-  
+  <group id="Waiter" type="role">
+    <inherits>
+      <group-ref>Barkeeper</group-ref>
+    </inherits>
+    <permissions>
+      <permission id="ItemManagement_FindItem"/>
+      <permission id="CustomerManagement_SaveCustomer"/>
+      <permission id="CustomerManagement_DeleteCustomer"/>
+      <permission id="OrderManagement_SaveOrder"/>
+    </permissions>
+  </group>
+
+  <group id="Cook" type="role">
+    <inherits>
+      <group-ref>Waiter</group-ref>
+    </inherits>
+    <permissions>
+      <permission id="OrderManagement_FindOrder"/>
+      <permission id="OrderManagement_DeleteOrder"/>
+    </permissions>
+  </group>
+
+  <group id="Chief" type="role">
+    <inherits>
+      <group-ref>Cook</group-ref>
+    </inherits>
+    <permissions>
+      <permission id="ItemManagement_SaveItem"/>
+      <permission id="ItemManagement_DeleteItem"/>
+    </permissions>
+  </group>
+
+
 </access-control-schema>
